@@ -2,8 +2,10 @@ package com.example.gd_dolgozat24_12_02;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -19,7 +21,7 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     private EditText editTextKonyvCim, editTextSzerzo, editTextOldalszam;
-    private Button buttonHozzaadas, torlesButton;
+    private Button buttonHozzaadas;
     private ListView listViewKonyvek;
     private BookAdapter bookAdapter;
     private List<Book> bookList;
@@ -35,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         editTextOldalszam = findViewById(R.id.editTextOldalszam);
         buttonHozzaadas = findViewById(R.id.buttonHozzaadas);
         listViewKonyvek = findViewById(R.id.listViewKonyvek);
-        torlesButton = findViewById(R.id.torlesButton);
 
         bookList = new ArrayList<>();
         bookAdapter = new BookAdapter(bookList, this);
@@ -71,6 +72,16 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Oldalszám nem lehet üres vagy nem szám!", Toast.LENGTH_SHORT).show();
                     }
                 }
+            }
+        });
+        listViewKonyvek.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+                intent.putExtra("book_title", bookList.get(i).getTitle());
+                intent.putExtra("book_author", bookList.get(i).getAuthor());
+                intent.putExtra("book_pages", bookList.get(i).getPages());
+                startActivity(intent);
             }
         });
     }

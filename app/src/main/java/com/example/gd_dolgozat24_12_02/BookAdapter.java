@@ -1,5 +1,6 @@
 package com.example.gd_dolgozat24_12_02;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -45,23 +46,19 @@ public class BookAdapter extends BaseAdapter {
         TextView textViewKonyvCim = convertView.findViewById(R.id.textViewKonyvCim);
         TextView textViewKonyvSzerzo = convertView.findViewById(R.id.textViewKonyvSzerzo);
         TextView textViewOldal = convertView.findViewById(R.id.textViewOldal);
-
+        Button torlesButton = convertView.findViewById(R.id.torlesButton);
         Book book = books.get(position);
 
         textViewKonyvCim.setText(book.getTitle());
         textViewKonyvSzerzo.setText(book.getAuthor());
         textViewOldal.setText("Oldalszám: " + book.getPages());
 
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, DetailsActivity.class);
-                intent.putExtra("book_title", book.getTitle());
-                intent.putExtra("book_author", book.getAuthor());
-                intent.putExtra("book_pages", book.getPages());
-                context.startActivity(intent);
-            }
-        });
+                torlesButton.setOnClickListener(v -> {
+                    new AlertDialog.Builder(context).setMessage("Biztosan törölni szeretnéd a könyvet?").setPositiveButton("Igen", (dialog, which) -> {
+                        books.remove(position);
+                        notifyDataSetChanged();
+                    }).setNegativeButton("Nem", null).show();
+                });
 
         return convertView;
     }

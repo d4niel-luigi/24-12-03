@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.Random;
 
 public class DetailsActivity extends AppCompatActivity {
-    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,23 +46,6 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
-            }
-        });
-        torlesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setTitle("Törlés");
-                builder.setMessage("Biztosan törli a felhasználót?");
-                builder.setPositiveButton("Igen", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                });
-                builder.setNegativeButton("Nem", null);
-                AlertDialog dialog = builder.create();
-                dialog.show();
             }
         });
     }
