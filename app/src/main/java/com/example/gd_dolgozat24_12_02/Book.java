@@ -14,7 +14,6 @@ public class Book {
         this.year = year;
     }
 
-    // Getterek
     public String getTitle() {
         return title;
     }

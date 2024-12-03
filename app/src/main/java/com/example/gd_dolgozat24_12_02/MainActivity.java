@@ -1,5 +1,6 @@
 package com.example.gd_dolgozat24_12_02;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private ListView listViewKonyvek;
     private BookAdapter bookAdapter;
     private List<Book> bookList;
-    private int selectedPosition = -1;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,35 +71,6 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Oldalszám nem lehet üres vagy nem szám!", Toast.LENGTH_SHORT).show();
                     }
                 }
-            }
-        });
-
-        listViewKonyvek.setOnItemClickListener((parent, view, position, id) -> {
-            selectedPosition = position;
-            Book selectedBook = bookList.get(position);
-
-            Toast.makeText(MainActivity.this, "Kiválasztott könyv: " + selectedBook.getTitle(), Toast.LENGTH_SHORT).show();
-
-            torlesButton.setVisibility(View.VISIBLE);
-            torlesButton.setVisibility(View.GONE);
-        });
-
-        torlesButton.setOnClickListener(v -> {
-            if (selectedPosition != -1) {
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("Törlés")
-                        .setMessage("Biztosan törli a könyvet?")
-                        .setPositiveButton("Igen", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                bookList.remove(selectedPosition);
-                                bookAdapter.notifyDataSetChanged();
-                                selectedPosition = -1;
-                                torlesButton.setVisibility(View.GONE);
-                            }
-                        })
-                        .setNegativeButton("Nem", null)
-                        .show();
             }
         });
     }

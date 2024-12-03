@@ -52,7 +52,6 @@ public class BookAdapter extends BaseAdapter {
         textViewKonyvSzerzo.setText(book.getAuthor());
         textViewOldal.setText("Oldalszám: " + book.getPages());
 
-        // Kattintás a könyv címére
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
